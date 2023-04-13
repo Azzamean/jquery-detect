@@ -2,8 +2,9 @@
   import loadingImg from '../assets/images/loading.svg'
   const action = '/detect.json'
   const method = 'POST'
+  const defaultValue = 'https://'
 
-  let inputUrl = ''
+  let inputUrl = defaultValue
   let loading = false
   let invalid = false
   let error = ''
@@ -11,7 +12,7 @@
   let submitted = false
 
   async function submitUrl(url: string) {
-    if (!url) {
+    if (!url || url === defaultValue) {
       invalid = true
       return
     }
@@ -47,18 +48,6 @@
   }
 </script>
 
-{#if error}
-  <div class="error">{error}</div>
-{:else if !loading && submitted}
-  <div class="result">
-    {#if version}
-      Version detected: <code>{version}</code>
-    {:else}
-      No version detected
-    {/if}
-  </div>
-{/if}
-
 <form class="flex-column" on:submit|preventDefault={() => submitUrl(inputUrl)}>
   <label for="url">URL</label>
   <div class="flex-row input-wrap">
@@ -66,10 +55,10 @@
       required
       bind:value={inputUrl}
       class:invalid
-      type="url"
+      type="text"
       name="url"
       id="url"
-      placeholder="Paste or type a URL"
+      placeholder={defaultValue}
       on:paste={(e) => {
         const value = e.clipboardData?.getData('text')
         if (value) {
@@ -90,6 +79,18 @@
   </div>
 </form>
 
+{#if error}
+  <p class="error">{error}</p>
+{:else if !loading && submitted}
+  <p class="result">
+    {#if version}
+      Version detected: <code>{version}</code>
+    {:else}
+      No version detected
+    {/if}
+  </p>
+{/if}
+
 <style>
   .input-wrap {
     gap: 10px;
@@ -107,8 +108,14 @@
   button.loading span {
     visibility: hidden;
   }
+  .error {
+    color: var(--error-color);
+  }
   .result {
+    color: var(--success-color);
     font-size: 2em;
-    padding-top: 0.5em;
+    padding: 10px 20px;
+    background-color: var(--border-color);
+    border-radius: var(--border-radius);
   }
 </style>

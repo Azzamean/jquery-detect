@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro'
+import getVersion from '../utils/getVersion'
 
 export const post: APIRoute = async ({ request }) => {
   let url
@@ -20,9 +21,23 @@ export const post: APIRoute = async ({ request }) => {
     })
   }
 
+  let version
+  try {
+    version = await getVersion(url)
+  } catch (error) {
+    console.error(error)
+    return new Response(
+      JSON.stringify({ error: 'Unknown error retrieving version' }),
+      {
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    )
+  }
+
   return {
-    body: JSON.stringify({
-      version: '1.0.0'
-    })
+    body: JSON.stringify({ version })
   }
 }
