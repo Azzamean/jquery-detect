@@ -1,14 +1,9 @@
 ---
-import { Image } from '@astrojs/image/components'
-import logoImage from '../assets/logo.png'
+import logoImage from '../assets/images/logo.png'
 ---
 
-<header>
-  <Image
-    src={logoImage}
-    alt="jQuery Logo"
-    aspectRatio="578:147"
-    width={192}
-    height={49}
-  />
+<header class="flex-row">
+  <a aria-label="jQuery Detection Tool Home" href="/">
+    <img src={logoImage.src} alt="jQuery Logo" width="240" />
+  </a>
 </header>

@@ -1,17 +1,16 @@
 import { defineConfig } from 'astro/config'
-import image from '@astrojs/image'
 import node from '@astrojs/node'
-import sitemap from '@astrojs/sitemap'
+import svelte from '@astrojs/svelte'
 
 // https://astro.build/config
 export default defineConfig({
+  experimental: {
+    assets: true
+  },
   site: 'https://detect.jquery.com',
-  integrations: [sitemap(), image()],
+  integrations: [svelte()],
   output: 'server',
   adapter: node({
     mode: 'standalone'
-  }),
-  server: {
-    port: 8000
-  }
+  })
 })

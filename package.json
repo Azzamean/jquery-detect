@@ -2,9 +2,10 @@
   "name": "jquery-detect",
   "type": "module",
   "version": "0.0.1",
+  "main": "dist/server/entry.mjs",
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev",
+    "start": "node dist/server/entry.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
@@ -12,20 +13,21 @@
     "test": "npm run lint"
   },
   "dependencies": {
-    "@astrojs/image": "^0.16.6",
     "@astrojs/node": "^5.1.1",
-    "@astrojs/rss": "^2.3.2",
-    "@astrojs/sitemap": "^1.2.2",
-    "astro": "^2.2.3"
+    "@astrojs/svelte": "^2.1.0",
+    "astro": "^2.3.0",
+    "svelte": "^3.58.0"
   },
   "devDependencies": {
-    "@typescript-eslint/parser": "^5.57.1",
+    "@typescript-eslint/parser": "^5.58.0",
+    "color": "^4.2.3",
     "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-astro": "^0.26.1",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.8.7",
-    "prettier-plugin-astro": "^0.8.0"
+    "prettier-plugin-astro": "^0.8.0",
+    "prettier-plugin-svelte": "^2.10.0"
   }
 }

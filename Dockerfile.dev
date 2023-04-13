@@ -1,0 +1,19 @@
+FROM node:lts AS runtime
+
+WORKDIR /app
+
+# Files needed to install deps
+COPY package.json package.json
+COPY package-lock.json package-lock.json
+
+# Only use npm ci in the main Dockerfile
+RUN npm install
+
+ENV HOST=0.0.0.0
+ENV PORT=8000
+
+EXPOSE 8000
+# Node debugging port
+EXPOSE 9229
+
+CMD npm run dev
