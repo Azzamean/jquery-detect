@@ -1,19 +1,22 @@
-/*
-  The CSS in this style tag is based off of Bear Blog's default CSS.
-  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
-  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
- */
+:root {
+  --background: #0769ad;
+}
+html {
+  background-color: var(--background);
+  padding: 20px;
+}
 body {
-  font-family: Verdana, sans-serif;
+  font-family: 'Helvetica Neue', HelveticaNeue, Helvetica, Arial, sans-serif;
   margin: auto;
   padding: 20px;
   max-width: 65ch;
   text-align: left;
-  background-color: #fff;
+  background-color: white;
   word-wrap: break-word;
   overflow-wrap: break-word;
   line-height: 1.5;
   color: #222;
+  font-size: 100%;
 }
 h1,
 h2,
@@ -33,10 +36,10 @@ nav a {
 }
 textarea {
   width: 100%;
-  font-size: 16px;
+  font-size: 1rem;
 }
 input {
-  font-size: 16px;
+  font-size: 1rem;
 }
 content {
   line-height: 1.6;
@@ -64,4 +67,43 @@ blockquote {
   padding: 2px 0px 2px 20px;
   margin: 0px;
   font-style: italic;
+}
+label {
+  font-weight: bold;
+}
+label[for] {
+  cursor: pointer;
+}
+input {
+  width: 100%;
+  padding: 5px 10px;
+}
+button {
+  cursor: pointer;
+  background-color: var(--background);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+}
+button[disabled] {
+  opacity: 0.5;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flex-between-center {
+  justify-content: space-between;
+  align-items: center;
 }

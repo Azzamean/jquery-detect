@@ -1,0 +1,6 @@
+---
+const { loading, ...props } = Astro.props
+console.log(props)
+---
+
+<button class:list={[{ loading }]} {...props}><slot /></button>

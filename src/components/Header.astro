@@ -1,17 +1,14 @@
 ---
-import { SITE_TITLE } from '../constants'
+import { Image } from '@astrojs/image/components'
+import logoImage from '../assets/logo.png'
 ---
 
 <header>
-  <h2>
-    {SITE_TITLE}
-  </h2>
+  <Image
+    src={logoImage}
+    alt="jQuery Logo"
+    aspectRatio="578:147"
+    width={192}
+    height={49}
+  />
 </header>
-<style>
-  header {
-    margin: 0 0 2em;
-  }
-  h2 {
-    margin: 0.5em 0;
-  }
-</style>

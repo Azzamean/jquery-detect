@@ -1,12 +1,11 @@
 module.exports = {
-  env: {
-    browser: true,
-    es2021: true
-  },
-  extends: ['plugin:astro/recommended', 'plugin:prettier/recommended'],
-  parserOptions: {
-    sourceType: 'module'
-  },
+  // ...
+  extends: [
+    // ...
+    'plugin:astro/recommended',
+    'plugin:astro/jsx-a11y-recommended'
+  ],
+  // ...
   overrides: [
     {
       // Define the configuration for `.astro` file.
@@ -24,5 +23,6 @@ module.exports = {
         // "astro/no-set-html-directive": "error"
       }
     }
+    // ...
   ]
 }
