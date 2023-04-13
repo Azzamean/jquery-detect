@@ -8,7 +8,10 @@ declare global {
 }
 
 export default async function getVersion(url: string) {
-  const browser = await puppeteer.launch()
+  const launchOpts = process.env.CHROMIUM_FLAGS
+    ? { args: process.env.CHROMIUM_FLAGS.split(/\s+/) }
+    : {}
+  const browser = await puppeteer.launch(launchOpts)
   const page = await browser.newPage()
   await page.goto(url)
 
