@@ -20,6 +20,7 @@ export default async function getVersion(url: string) {
   let version
   try {
     await page.goto(normalizeUrl(url), {
+      timeout: 60000,
       waitUntil: 'load'
     })
 
