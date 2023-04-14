@@ -20,7 +20,7 @@ export default async function getVersion(url: string) {
   let version
   try {
     await page.goto(normalizeUrl(url), {
-      waitUntil: 'domcontentloaded'
+      waitUntil: 'load'
     })
 
     version = await page.evaluate(() => {
