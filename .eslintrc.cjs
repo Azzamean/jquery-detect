@@ -4,10 +4,7 @@ module.exports = {
     'plugin:astro/jsx-a11y-recommended',
     'plugin:prettier/recommended'
   ],
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module'
-  },
+  parser: '@typescript-eslint/parser',
   overrides: [
     {
       // Define the configuration for `.astro` file.
