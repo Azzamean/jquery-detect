@@ -27,7 +27,7 @@ export const post: APIRoute = async ({ request }) => {
   } catch (error) {
     console.error(error)
     return new Response(
-      JSON.stringify({ error: 'Unknown error retrieving version' }),
+      JSON.stringify({ error: 'Error retrieving version.' }),
       {
         status: 500,
         headers: {

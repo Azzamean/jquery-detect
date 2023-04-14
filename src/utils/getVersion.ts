@@ -30,7 +30,7 @@ export default async function getVersion(url: string) {
       }
     })
   } catch (error) {
-    console.error(error)
+    throw error
   } finally {
     await context.close()
   }
