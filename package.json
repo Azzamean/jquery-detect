@@ -9,8 +9,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "eslint . && prettier --check . && tsc --noEmit",
-    "test": "npm run lint"
+    "lint": "eslint . && prettier --check . && npm run typescript",
+    "test": "npm run lint",
+    "typescript": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
     "@astrojs/node": "^5.1.1",
