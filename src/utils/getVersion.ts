@@ -19,7 +19,9 @@ export default async function getVersion(url: string) {
 
   let version
   try {
-    await page.goto(normalizeUrl(url))
+    await page.goto(normalizeUrl(url), {
+      waitUntil: 'domcontentloaded'
+    })
 
     version = await page.evaluate(() => {
       const $ = window.jQuery || window.$
