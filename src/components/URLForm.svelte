@@ -2,9 +2,8 @@
   import loadingImg from '../assets/images/loading.svg'
   const action = '/detect.json'
   const method = 'POST'
-  const defaultValue = 'https://'
 
-  let inputUrl = defaultValue
+  let inputUrl = ''
   let loading = false
   let invalid = false
   let error = ''
@@ -12,7 +11,7 @@
   let submitted = false
 
   async function submitUrl(url: string) {
-    if (!url || url === defaultValue) {
+    if (!url) {
       invalid = true
       return
     }
@@ -58,7 +57,7 @@
       type="text"
       name="url"
       id="url"
-      placeholder={defaultValue}
+      placeholder="https://"
       on:paste={(e) => {
         const value = e.clipboardData?.getData('text')
         if (value) {
