@@ -16,8 +16,11 @@
       return
     }
 
+    // Reset states
     loading = true
-    invalid = false
+    invalid = submitted = false
+    error = version = ''
+
     try {
       const res = await fetch(action, {
         method,
@@ -29,7 +32,6 @@
       if (res.ok) {
         const json = await res.json()
         version = json.version
-        console.log(version)
       } else {
         try {
           const json = await res.json()
