@@ -37,7 +37,7 @@ export default async function getVersion(url: string) {
 
     // Wait longer if version not detected
     console.log(`Waiting until network idle for ${url}...`)
-    await page.waitForNetworkIdle({ idleTime: 100, timeout: 60000 })
+    await page.waitForNetworkIdle({ timeout: 60000 })
     version = await evalVersion()
   } catch (error) {
     throw error
