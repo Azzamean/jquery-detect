@@ -13,7 +13,7 @@ export const post: APIRoute = async ({ request }) => {
   }
 
   if (typeof url !== 'string') {
-    return new Response(JSON.stringify({ error: 'Missing URL' }), {
+    return new Response(JSON.stringify({ message: 'Missing URL' }), {
       status: 400,
       headers: {
         'Content-Type': 'application/json'
@@ -25,9 +25,23 @@ export const post: APIRoute = async ({ request }) => {
   try {
     version = await getVersion(url)
   } catch (error) {
+    const message = (error as Error)?.message
+
+    // Better message for URL not found
+    if (message.includes('ERR_NAME_NOT_RESOLVED')) {
+      console.log(message)
+      return {
+        body: JSON.stringify({
+          message: '404: Not Found. Please check the URL.'
+        })
+      }
+    }
+
     console.error(error)
     return new Response(
-      JSON.stringify({ error: 'Error retrieving version.' }),
+      JSON.stringify({
+        message: 'Error detecting version. Please try again later.'
+      }),
       {
         status: 500,
         headers: {
@@ -36,6 +50,12 @@ export const post: APIRoute = async ({ request }) => {
       }
     )
   }
+
+  console.log(
+    version
+      ? `Detected version ${version} for ${url}`
+      : `No version detected for ${url}`
+  )
 
   return {
     body: JSON.stringify({ version })

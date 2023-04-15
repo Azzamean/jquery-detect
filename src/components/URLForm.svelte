@@ -4,11 +4,11 @@
   const method = 'POST'
 
   let inputUrl = ''
+  let version: string | undefined = ''
+
   let loading = false
   let invalid = false
-  let error = ''
-  let version = ''
-  let submitted = false
+  let message: string | undefined
 
   async function submitUrl(url: string) {
     if (!url) {
@@ -18,8 +18,8 @@
 
     // Reset states
     loading = true
-    invalid = submitted = false
-    error = version = ''
+    invalid = false
+    message = version = ''
 
     try {
       const res = await fetch(action, {
@@ -31,18 +31,19 @@
       })
       if (res.ok) {
         const json = await res.json()
+        message = json.message
         version = json.version
       } else {
         try {
           const json = await res.json()
-          error = json.error
+          message = json.message
         } catch (e) {
-          error = res.statusText
+          message = res.statusText
         }
       }
-      submitted = true
     } catch (error) {
-      error = (error as Error).message
+      console.error(error)
+      message = 'Error communicating with server. Please refresh and try again.'
     } finally {
       loading = false
     }
@@ -80,16 +81,12 @@
   </div>
 </form>
 
-{#if error}
-  <p class="error">{error}</p>
-{:else if !loading && submitted}
-  <p class="result">
-    {#if version}
-      Version detected: <code>{version}</code>
-    {:else}
-      No version detected
-    {/if}
-  </p>
+{#if version}
+  <p class="result">Version detected: <code>{version}</code></p>
+{:else if message}
+  <p class="message">{message}</p>
+{:else if !loading && version === undefined}
+  <p class="result">No version detected</p>
 {/if}
 
 <style>
@@ -109,14 +106,14 @@
   button.loading span {
     visibility: hidden;
   }
-  .error {
-    color: var(--error-color);
-  }
-  .result {
+  .result,
+  .message {
     color: var(--success-color);
-    font-size: 2em;
     padding: 10px 20px;
     background-color: var(--border-color);
     border-radius: var(--border-radius);
+  }
+  .result {
+    font-size: 2em;
   }
 </style>

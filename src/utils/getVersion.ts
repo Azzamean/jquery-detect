@@ -23,7 +23,6 @@ export default async function getVersion(url: string) {
       timeout: 60000,
       waitUntil: 'load'
     })
-
     version = await page.evaluate(() => {
       const $ = window.jQuery || window.$
       if ($) {

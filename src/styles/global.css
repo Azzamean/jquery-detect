@@ -4,7 +4,6 @@
   --button: var(--background);
   --button-hover: #065e9c;
   --success-color: #7acef4;
-  --error-color: #ff3860;
   --border-radius: 10px;
 }
 html {
