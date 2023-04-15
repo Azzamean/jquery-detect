@@ -18,17 +18,27 @@ export default async function getVersion(url: string) {
   const page = await context.newPage()
 
   let version
-  try {
-    await page.goto(normalizeUrl(url), {
-      timeout: 60000,
-      waitUntil: 'load'
-    })
-    version = await page.evaluate(() => {
+  function evalVersion() {
+    return page.evaluate(() => {
       const $ = window.jQuery || window.$
       if ($) {
         return $.fn.jquery
       }
     })
+  }
+
+  try {
+    await page.goto(normalizeUrl(url), {
+      timeout: 60000,
+      waitUntil: 'domcontentloaded'
+    })
+    version = await evalVersion()
+    if (version) return version
+
+    // Wait longer if version not detected
+    console.log(`Waiting until network idle for ${url}...`)
+    await page.waitForNetworkIdle({ idleTime: 100, timeout: 60000 })
+    version = await evalVersion()
   } catch (error) {
     throw error
   } finally {
