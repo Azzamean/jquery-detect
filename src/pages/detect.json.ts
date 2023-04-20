@@ -29,7 +29,7 @@ export const post: APIRoute = async ({ request }) => {
 
     // Better message for URL not found
     if (message.includes('ERR_NAME_NOT_RESOLVED')) {
-      console.log(message)
+      console.log(`404: Not Found for ${url}`)
       return {
         body: JSON.stringify({
           message: '404: Not Found. Please check the URL.'
@@ -37,6 +37,17 @@ export const post: APIRoute = async ({ request }) => {
       }
     }
 
+    if (message.includes('timeout')) {
+      console.log(`Timeout loading ${url}`)
+      return {
+        body: JSON.stringify({
+          message:
+            'Timed out waiting for page to load. Please check the page loads in your browser. If the problem persists, please try again later.'
+        })
+      }
+    }
+
+    console.log(`Error loading ${url}`)
     console.error(error)
     return new Response(
       JSON.stringify({

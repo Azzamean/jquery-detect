@@ -16,6 +16,7 @@ const browser = await puppeteer.launch(launchOpts)
 export default async function getVersion(url: string) {
   const context = await browser.createIncognitoBrowserContext()
   const page = await context.newPage()
+  const normalizedUrl = normalizeUrl(url)
 
   let version
   function evalVersion() {
@@ -28,7 +29,7 @@ export default async function getVersion(url: string) {
   }
 
   try {
-    await page.goto(normalizeUrl(url), {
+    await page.goto(normalizedUrl, {
       timeout: 60000,
       waitUntil: 'domcontentloaded'
     })
@@ -36,7 +37,7 @@ export default async function getVersion(url: string) {
     if (version) return version
 
     // Wait longer if version not detected
-    console.log(`Waiting until network idle for ${url}...`)
+    console.log(`Waiting until network idle for ${normalizedUrl}...`)
     await page.waitForNetworkIdle({ timeout: 60000 })
     version = await evalVersion()
   } catch (error) {
