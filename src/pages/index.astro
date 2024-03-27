@@ -2,6 +2,11 @@
 import BaseHead from '../components/BaseHead.astro'
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
+import Intro from '../components/Intro.astro'
+import CurrentVersion from '../components/CurrentVersion.astro'
+import PastVersion from '../components/PastVersion.astro'
+import NoVersion from '../components/NoVersion.astro'
+import NoSite from '../components/NoSite.astro'
 import { SITE_TITLE, SITE_DESCRIPTION } from '../constants'
 import URLForm from '../components/URLForm.svelte'
 ---
@@ -14,12 +19,11 @@ import URLForm from '../components/URLForm.svelte'
   <body>
     <Header />
     <main>
-      <h1>{SITE_TITLE}</h1>
-      <p>
-        This tool will attempt to detect the version of jQuery that is loaded on
-        a page. Paste or enter a URL.
-      </p>
-      <URLForm client:load />
+      <Intro />
+      <CurrentVersion />
+      <PastVersion />
+      <NoVersion />
+      <NoSite />
     </main>
     <Footer />
   </body>

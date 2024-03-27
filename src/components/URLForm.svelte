@@ -47,11 +47,15 @@
     } finally {
       loading = false
     }
+    var x = document.querySelectorAll(".version")
+    var i
+    for (i = 0; i < x.length; i++) {
+        x[i].innerHTML += version
+    }
   }
 </script>
 
 <form class="flex-column" on:submit|preventDefault={() => submitUrl(inputUrl)}>
-  <label for="url">URL</label>
   <div class="flex-row input-wrap">
     <input
       required
@@ -76,17 +80,48 @@
         width={18}
         height={18}
       />
-      <span>Detect</span>
+      <span>Check Now</span>
     </button>
   </div>
 </form>
 
-{#if version}
-  <p class="result">Version detected: <code>{version}</code></p>
-{:else if message}
-  <p class="message">{message}</p>
-{:else if !loading && version === undefined}
-  <p class="result">No version detected</p>
+<!-- DOUBLE CHECK WITH CHROME COMMAND CONSOLE console.log(jQuery().jquery); -->
+{#if version == "3.7.1"}
+  <!-- CURRENT VERSION: https://www.linux.com/ -->
+  <script lang="ts">
+    intro.classList.remove('display')
+    intro.classList.add('hide')
+
+    current.classList.remove('hide')
+    current.classList.add('display')
+  </script>
+{:else if version != undefined && version != "" && version < "3.7.1"}
+  <!-- OLD VERSION: https://www.sellercommunity.com/ -->
+  <script lang="ts">
+    intro.classList.remove('display')
+    intro.classList.add('hide')
+
+    past.classList.remove('hide')
+    past.classList.add('display')
+  </script>
+{:else if !loading && version === undefined && message == undefined}
+  <!-- NO VERSION: https://youmightnotneedjquery.com/ -->
+  <script lang="ts">
+    intro.classList.remove('display')
+    intro.classList.add('hide')
+
+    noversion.classList.remove('hide')
+    noversion.classList.add('display')
+  </script>
+{:else if !loading && version === undefined && message != undefined}
+  <!-- NO WEBSITE: https://thissiteobviouslydoesntexist.com/ -->
+  <script lang="ts">
+    intro.classList.remove('display')
+    intro.classList.add('hide')
+
+    nosite.classList.remove('hide')
+    nosite.classList.add('display')
+  </script>
 {/if}
 
 <style>
@@ -108,7 +143,7 @@
   }
   .result,
   .message {
-    color: var(--success-color);
+    color: var(--current-color);
     padding: 10px 20px;
     background-color: var(--border-color);
     border-radius: var(--border-radius);
